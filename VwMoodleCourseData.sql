@@ -1,3 +1,4 @@
+/* Create all timetabled classes */
 SELECT DISTINCT TblSubjects.txtSubjectName, TblSets.txtSetCode + ' - ' +
 	(SELECT RIGHT(CONVERT(varchar(12), (SELECT txtStartYear FROM TblTimetableManagerTimetables WHERE (intPublished = '1'))), 2) 
 	+ '-' + RIGHT(CONVERT(varchar(12), CONVERT(int,(SELECT txtStartYear FROM TblTimetableManagerTimetables AS TblTimetableManagerTimetables_5 
@@ -11,13 +12,17 @@ SELECT DISTINCT TblSubjects.txtSubjectName, TblSets.txtSetCode + ' - ' +
 FROM  TblTeachingManagerSets AS TblSets INNER JOIN TblTeachingManagerSubjects AS TblSubjects ON TblSets.intSubject = TblSubjects.TblTeachingManagerSubjectsID
 WHERE (TblSubjects.txtSubjectName NOT IN ('Private Study', 'Non Class', 'Conversation', 'Fixtures', 'Sport', 'Study', 'SEN', 'Lunch/Activities', 'Scholarship', 'Enrichment', 'Lifeskills')) 
 UNION ALL
+/* Create all Year Group classes */
 SELECT DISTINCT txtYearName AS txtSubjectName, txtYearName AS txtCourseID, 'iSAMS Sync - ' + txtYearName AS txtFullName, 'iSAMS Sync - ' + txtYearName AS txtShortName, '40' AS intCategoryID
 FROM dbo.TblSchoolManagementYears
 UNION ALL
+/* Create Staff class */
 SELECT DISTINCT 'iSAMS_Staff' AS txtSubjectName, 'iSAMS_Staff' AS txtCourseID, 'iSAMS Sync - Staff' AS txtFullName, 'iSAMS Sync - Staff' AS txtShortName, '40' AS intCategoryID
 UNION ALL
+/* Create Staff Academic class */
 SELECT DISTINCT 'iSAMS_AcademicStaff' AS txtSubjectName, 'iSAMS_AcademicStaff' AS txtCourseID, 'iSAMS Sync - Academic Staff' AS txtFullName, 'iSAMS Sync - Academic Staff' AS txtShortName, '40' AS intCategoryID
 UNION ALL
+/* Create House classes */
 SELECT DISTINCT txtHouseName AS txtSubjectName, txtHouseName AS txtCourseID, 'House - ' + txtHouseName AS txtFullName, 'House - ' + txtHouseName AS txtShortName, '38' AS intCategoryID
 FROM dbo.TblSchoolManagementHouses
 WHERE txtHouseType = 'Academic'
