@@ -9,7 +9,7 @@ SELECT DISTINCT TblSubjects.txtSubjectName, TblSets.txtSetCode + ' - ' +
 	WHERE (intPublished = '1'))), 2) + '-' + RIGHT(CONVERT(varchar(12), CONVERT(int, (SELECT txtStartYear FROM TblTimetableManagerTimetables AS TblTimetableManagerTimetables_1
 	WHERE (intPublished = '1')) + CONVERT(int, 1))), 2) AS txtNCYearRange) AS txtShortName, '52' AS intCategoryID
 FROM  TblTeachingManagerSets AS TblSets INNER JOIN TblTeachingManagerSubjects AS TblSubjects ON TblSets.intSubject = TblSubjects.TblTeachingManagerSubjectsID
-WHERE (TblSubjects.txtSubjectName <> 'Private Study') AND (TblSubjects.txtSubjectName <> 'Non Class') AND (TblSubjects.txtSubjectName <> 'Conversation') AND (TblSubjects.txtSubjectName <> 'Fixtures') AND (TblSubjects.txtSubjectName <> 'Sport') AND (TblSubjects.txtSubjectName <> 'Study') AND (TblSubjects.txtSubjectName <> 'SEN') AND (TblSubjects.txtSubjectName <> 'Lunch/Activities')
+WHERE (TblSubjects.txtSubjectName NOT IN ('Private Study', 'Non Class', 'Conversation', 'Fixtures', 'Sport', 'Study', 'SEN', 'Lunch/Activities', 'Scholarship', 'Enrichment', 'Lifeskills')) 
 UNION ALL
 SELECT DISTINCT txtYearName AS txtSubjectName, txtYearName AS txtCourseID, 'iSAMS Sync - ' + txtYearName AS txtFullName, 'iSAMS Sync - ' + txtYearName AS txtShortName, '40' AS intCategoryID
 FROM dbo.TblSchoolManagementYears
